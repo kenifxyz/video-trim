@@ -1,6 +1,7 @@
 import os
 import subprocess
 import pathlib
+import time
 dir = str(pathlib.Path(__file__).parent.resolve())
 dir = dir.replace(" ", "\ ")
 files = os.listdir(".")
@@ -32,3 +33,11 @@ for f in untrimmedFiles:
         outPath = dir + "/t-" + fileName
         command = "ffmpeg -ss 00:00:03.2 -i " + absolutePath + " -c copy " + outPath
         subprocess.run(command, shell=True)
+        # remove original file
+        try:
+            time.sleep(0.3)
+            absolutePath = absolutePath.replace("\ ", " ")
+            os.remove(absolutePath)
+        except:
+            print("Could not remove " + absolutePath)
+            pass
